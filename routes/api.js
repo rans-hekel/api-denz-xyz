@@ -173,7 +173,7 @@ loghandler = {
 Akhir Pesan Error
 */
 
-router.use(favicon(__path + "/views/tes.ico"));
+router.use(favicon(__path + "/views/favicon.ico"));
 
 const listkey = ["Iqbalz", "manogay"];
 
