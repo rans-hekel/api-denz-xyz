@@ -1669,7 +1669,7 @@ router.get('/kuis/tebakGambar', async (req, res, next) => {
       status: true,
       code: 200,
       creator: `${creator}`,
-      image: result.img,
+      images: result.images,
       jawaban: result.jawaban,
       clue: result.petunjuk
     }
