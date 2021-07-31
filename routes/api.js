@@ -1637,6 +1637,31 @@ res.json(loghandler.invalidKey)
 })
 
 
+router.get('/simi', async (req, res, next) => {
+        var Apikey = req.query.apikey,
+            kata = req.query.kata
+            
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+        if(!kata) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter kata"})
+
+       fetch(encodeURI(`https://fdciabdul.tech/api/ayla/?pesan=${kata}`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+             res.json({
+                 result
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+
 router.get('/kuis/caklontong', async (req, res, next) => {
         var Apikey = req.query.apikey
 	if(!Apikey) return res.json(loghandler.notparam)
