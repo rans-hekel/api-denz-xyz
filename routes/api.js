@@ -1562,7 +1562,7 @@ router.get('/anime/kusonime', async (req, res, next) => {
 	if(!Apikey) return res.json(loghandler.notparam)
 	if(listkey.includes(Apikey)){
 	if(!search) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter search"})
-       fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/kusonime?search=${search}`))
+       fetch(encodeURI(`https://ardhixsquerpants.herokuapp.com/api/kuso?q=${search}`))
         .then(response => response.json())
         .then(data => {
         var result = data;
