@@ -1712,6 +1712,28 @@ res.json(loghandler.invalidKey)
 }
 })
 
+
+router.get('/kuis/tebaklirik', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`http://94.130.142.91:25621/tebaklirik`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+             res.json({
+                 result
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+
 router.get('/kuis/siapakahaku', async (req, res, next) => {
         var Apikey = req.query.apikey
 	if(!Apikey) return res.json(loghandler.notparam)
