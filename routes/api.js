@@ -1703,6 +1703,26 @@ res.json(loghandler.invalidKey)
 }
 })
 
+router.get('/kuis/siapakahaku', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`http://94.130.142.91:25621/siapakahaku`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+             res.json({
+                 result
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
 
 router.get("/photooxy/shadow", async(req, res, next) => {
   const text1 = req.query.text;
