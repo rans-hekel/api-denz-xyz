@@ -298,45 +298,55 @@ router.get('/download/ytmp4', async(req, res, next) => {
     }
 });
 
-router.get("/yt/playmp3", async(req, res, next) => {
-    const query = req.query.query;
-    const apikey = req.query.apikey;
-    
-    if(!query) return res.json(loghandler.notquery)
-    if(!apikey) return res.json(loghandler.notparam)
-    if(listkey.includes(apikey)){
-    ytPlayMp3(query)
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((error) => {
-            res.json(error);
-        });
-      } else {
-      res.json(loghandler.invalidKey)
-      }
-});
 
-router.get("/yt/playmp4", async(req, res, next) => {
+router.get('/yt/playmp3', async (req, res, next) => {
+        var Apikey = req.query.apikey,
+            judul = req.query.judul
+            
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+        if(!judul) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter judul"})
 
-    const query = req.query.query;
+       fetch(encodeURI(`http://94.130.142.91:25621/play?q=${judul}`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+             res.json({
+                 result
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
 
-    const apikey = req.query.apikey;
-    
-    if(!query) return res.json(loghandler.notquery)
-    if(!apikey) return res.json(loghandler.notparam)
-    if(listkey.includes(apikey)){
-    ytPlayMp4(query)
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((error) => {
-            res.json(error);
-        });
-      } else {
-      res.json(loghandler.invalidKey)
-      }
-});
+
+router.get('/yt/playmp4', async (req, res, next) => {
+        var Apikey = req.query.apikey,
+            judul = req.query.judul
+            
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+        if(!judul) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter judul"})
+
+       fetch(encodeURI(`http://94.130.142.91:25621/play2?q=${kata}`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+             res.json({
+                 result
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
 
 
 router.get('/yt/search', async(req, res, next) => {
