@@ -332,7 +332,7 @@ router.get('/yt/playmp4', async (req, res, next) => {
 	if(listkey.includes(Apikey)){
         if(!judul) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter judul"})
 
-       fetch(encodeURI(`http://94.130.142.91:25621/play2?q=${kata}`))
+       fetch(encodeURI(`http://94.130.142.91:25621/play2?q=${judul}`))
         .then(response => response.json())
         .then(data => {
         var result = data;
