@@ -389,32 +389,31 @@ res.json(loghandler.invalidKey)
 }
 })
 
-router.get('/download/ig', async(req, res, next) => {
-  const url = req.query.url;
-  const apikey = req.query.apikey;
-  if(!url) return res.json(loghandler.noturl)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  igDownload(url)
-    .then((data) => {
-      result = {
-        status: true,
-        code: 200,
-        creator: `${creator}`,
-        id: data.id,
-        shortCode: data.shortCode,
-        caption: data.caption,
-        result: data.url
-      }
-      res.json(result)
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
+
+router.get('/download/ig', async (req, res, next) => {
+        var Apikey = req.query.apikey,
+            url = req.query.url
+            
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+        if(!url) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter url"})
+
+       fetch(encodeURI(`https://api.zeks.xyz/api/ig?apikey=animobot213&url=${url}`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+             res.json({
+                 result
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
 
 router.get('/download/fb', async (req, res, next) => {
 
