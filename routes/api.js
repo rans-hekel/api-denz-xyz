@@ -301,13 +301,13 @@ router.get('/download/ytmp4', async(req, res, next) => {
 
 router.get('/yt/playmp3', async (req, res, next) => {
         var Apikey = req.query.apikey,
-            judul = req.query.judul
+            kata = req.query.kata
             
 	if(!Apikey) return res.json(loghandler.notparam)
 	if(listkey.includes(Apikey)){
-        if(!judul) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter judul"})
+        if(!kata) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter judul"})
 
-       fetch(encodeURI(`http://94.130.142.91:25621/play?q=${judul}`))
+       fetch(encodeURI(`http://94.130.142.91:25621/play?q=${kata}`))
         .then(response => response.json())
         .then(data => {
         var result = data;
@@ -326,13 +326,13 @@ res.json(loghandler.invalidKey)
 
 router.get('/yt/playmp4', async (req, res, next) => {
         var Apikey = req.query.apikey,
-            judul = req.query.judul
+            kata = req.query.kata
             
 	if(!Apikey) return res.json(loghandler.notparam)
 	if(listkey.includes(Apikey)){
-        if(!judul) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter judul"})
+        if(!kata) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter judul"})
 
-       fetch(encodeURI(`http://94.130.142.91:25621/play2?q=${judul}`))
+       fetch(encodeURI(`http://94.130.142.91:25621/play2?q=${kata}`))
         .then(response => response.json())
         .then(data => {
         var result = data;
