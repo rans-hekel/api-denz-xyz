@@ -1683,37 +1683,25 @@ res.json(loghandler.invalidKey)
 })
 
 
-router.get('/kuis/tebakGambar', async (req, res, next) => {
-  var apikey = req.query.apikey;
-  
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  let result = await tebakGambar()
-  if (result) {
-    const hasil = {
-      status: true,
-      code: 200,
-      creator: `${creator}`,
-      image: result.img,
-      jawaban: result.jawaban,
-      clue: result.petunjuk
-    }
-    res.json(hasil)
-  } else {
-    return res.status(408).json({
-      status: res.statusCode,
-      error: 'Emror'
-    })
-  }
-  } else {
-  res.json(loghandler.invalidKey)
-  }
+router.get('/kuis/tebakgambar', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`http://94.130.142.91:25621/tebakgambar`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+             res.json({
+                 result
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
 })
-
-/**
-* @Maker
-**/
-
+} else {
+res.json(loghandler.invalidKey)
+}
+})
 
 
 router.get("/photooxy/shadow", async(req, res, next) => {
