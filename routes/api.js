@@ -2426,6 +2426,28 @@ router.get("/maker/nulis", async (req, res, next) => {
   }
 })
 
+
+router.get('/nsfw/waifu', async (req, res, next) => {
+        var Apikey = req.query.apikey
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+       fetch(encodeURI(`https://api.waifu.pics/nsfw/waifu`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+             res.json({
+                 result
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
+
+
 router.get('/maker/ttp', async (req, res, next) => {
 
   Apikey = req.query.apikey;
