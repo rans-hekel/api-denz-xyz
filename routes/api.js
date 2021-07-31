@@ -1275,7 +1275,7 @@ router.get('/info/wikipedia', async (req, res, next) => {
 	if(listkey.includes(Apikey)){
         if(!search) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter search"})
 
-       fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/wiki?keyword=${search}`))
+       fetch(encodeURI(`https://api.zeks.xyz/api/wiki?apikey=animobot213&q=${search}`))
         .then(response => response.json())
         .then(data => {
         var result = data;
