@@ -471,28 +471,30 @@ res.json(loghandler.invalidKey)
 }
 })
 
-router.get('/stalk/ig', async(req, res, next) => {
-  const username = req.query.username;
-  const apikey = req.query.apikey;
-  if(!username) return res.json(loghandler.notusername)
-  if(!apikey) return res.json(loghandler.notparam)
-  if(listkey.includes(apikey)){
-  igStalk(username)
-    .then((result) => {
-      res.json({
-        status : true,
-        code: 200,
-        creator : `${creator}`,
-        result
-      });
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-    } else {
-    	res.json(loghandler.invalidKey)
-    }
-});
+
+router.get('/stalk/ig', async (req, res, next) => {
+        var Apikey = req.query.apikey,
+            kata = req.query.kata
+            
+	if(!Apikey) return res.json(loghandler.notparam)
+	if(listkey.includes(Apikey)){
+        if(!kata) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter username"})
+
+       fetch(encodeURI(`https://api.zeks.xyz/api/igstalk?apikey=animobot213&username=${kata}`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+             res.json({
+                 result
+             })
+         })
+         .catch(e => {
+         	res.json(loghandler.error)
+})
+} else {
+res.json(loghandler.invalidKey)
+}
+})
 
 
 router.get('/stalk/npm', async (req, res, next) => {
